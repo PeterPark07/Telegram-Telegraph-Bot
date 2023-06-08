@@ -5,7 +5,6 @@ import telebot
 
 app = Flask(__name__)
 bot = telebot.TeleBot(os.getenv('telegraph_bot'), threaded=False)
-bot.set_webhook(url = os.getenv('url'))
 state = False
 admin_user = int(os.getenv('admin'))
 users = [int(id) for id in (os.getenv('users').split(','))]

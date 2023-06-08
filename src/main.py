@@ -7,7 +7,7 @@ app = Flask(__name__)
 bot = telebot.TeleBot(os.getenv('telegraph_bot'), threaded=False)
 admin_user = int(os.getenv('admin'))
 users = [int(id) for id in (os.getenv('users').split(','))]
-account = 'No account'
+account0 = 'No account'
 @app.route('/', methods=['POST'])
 def telegram():
     # Process incoming updates

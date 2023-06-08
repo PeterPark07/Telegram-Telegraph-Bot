@@ -22,6 +22,10 @@ def telegram():
 
 @bot.message_handler(commands=['start'])
 def handle_start(message):
-    send_log(bot, message)
+    # Handle the /start command
+    bot.reply_to(message, "Hello there! I am Telegraph Bot. Type /help for help")
+    
+@bot.message_handler(commands=['help'])
+def handle_help(message):
     # Handle the /start command
     bot.reply_to(message, "Hello there! I am Telegraph Bot. Type /help for help")

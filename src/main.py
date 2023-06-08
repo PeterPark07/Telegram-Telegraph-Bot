@@ -47,8 +47,8 @@ def handle_account_creation(message):
         
         account0 = response
     elif len(input) == 3:
-        account = create_account(input[1] , input[2]
-        response = 'short_name - ' + account.get('short_name') + 'author_name - ' + account.get('author_name') + '\naccess_token - ' + account.get('access_token') + '\nauth_url - ' + account.get('auth_url')
+        account = create_account(input[1], input[2])
+        response = 'short_name - ' + account.get('short_name') + '\nauthor_name - ' + account.get('author_name') + '\naccess_token - ' + account.get('access_token') + '\nauth_url - ' + account.get('auth_url')
         bot.reply_to(message, response)
         account0 = response
     

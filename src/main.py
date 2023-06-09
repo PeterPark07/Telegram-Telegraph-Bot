@@ -138,7 +138,7 @@ def handle_page_creation(message):
                 response = create_page(title, content)
                         
         except:
-            response = "error , try Usage - /create_page <title> <[content]> <author_name(optional)> <author_url(optional)>"
+            response = "error, try Usage - /create_page <title> <[content]> <author_name(optional)> <author_url(optional)>"
     else:
         response = "Not logged in."
     
@@ -167,7 +167,7 @@ def handle_page_edit(message):
                 response = edit_page(path, title, content)
     
         except:
-            response = "Usage - /edit_page_<path> <new_title> <[new_content]> <new_author_name(optional)> <new_author_url(optional)>"
+            response = "error, try Usage - /edit_page_<path> <new_title> <[new_content]> <new_author_name(optional)> <new_author_url(optional)>"
     else:
         response = "Not logged in."
     

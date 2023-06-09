@@ -33,14 +33,9 @@ def handle_help(message):
         
 @bot.message_handler(commands=['login_'])
 def handle_existing_account(message):
-    bot.reply_to(message, "active")
     token = message.text.split("_")[1].strip()
-    bot.reply_to(message, f"on {token}")
     try:
-        account = login(token)
-        result = ''
-        for i in account:
-            result += f"{i} -> {info.get(i)}\n"
+        result = login(token)
     except:
         result = "Invalid access token provided"
     bot.reply_to(message, result)

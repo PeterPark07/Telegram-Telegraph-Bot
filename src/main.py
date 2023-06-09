@@ -57,4 +57,8 @@ def handle_account_creation(message):
 @bot.message_handler(commands=['my_account'])
 def handle_account_info(message):
     # Handle the /start command
-    bot.reply_to(message, get_account_info())
+    try:
+        info = get_account_info()
+    except:
+        info = "No Account"
+    bot.reply_to(message, info)

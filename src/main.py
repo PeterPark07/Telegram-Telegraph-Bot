@@ -28,7 +28,7 @@ def handle_start(message):
 @bot.message_handler(commands=['help'])
 def handle_help(message):
     # Handle the /start command
-    bot.reply_to(message, "use /start, /create_account , /my_account, /get_access_token, get_page_list")
+    bot.reply_to(message, "use /start, /create_account , /my_account, /get_access_token, /get_page_list, /revoke_access_token")
     
 
 @bot.message_handler(commands=['create_account'])
@@ -69,8 +69,8 @@ def handle_account_info(message):
 @bot.message_handler(commands=['get_access_token'])
 def handle_access_token(message):
     if account0:
-        result = get_access_token()
-        result+= f"To login using this token, use /login_{result}"
+        result = f"Your access token is ->> {get_access_token()}"
+        result+= f"\n\nTo login using this token, use /login_access_{result}"
     else:
         result = "Not logged in."
     bot.reply_to(message, result)
@@ -79,8 +79,28 @@ def handle_access_token(message):
 @bot.message_handler(commands=['get_page_list'])
 def handle_page_list(message):
     if account0:
-        result = get_page_list()
-        result+= f"To login using this token, use /login_{result}"
+        pages = get_page_list()
+        num_pages = pages["total_count"]
+        count = 0
+        result = ''
+        for i in pages["pages"]:
+            count+= 1
+            result+= "Page {count}\n\n"
+            for j in i:
+                result+= f"{j} -> {i[j]}\n"
+        
+    else:
+        result = "Not logged in."
+    bot.reply_to(message, result)
+    
+    
+@bot.message_handler(commands=['revoke_access_token'])
+def handle_revoke_token(message):
+    if account0:
+        new_token = revoke_access_token()
+        result = ''
+        for i in new_token:
+            result+= f"{i} -> {new_token[i]}\n"
     else:
         result = "Not logged in."
     bot.reply_to(message, result)

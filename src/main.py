@@ -134,7 +134,7 @@ def handle_page_creation(message):
                     response = "Usage - /create_page <title> <[content]> <author_name(optional)> <author_url(optional)>"
             else:
                 response = create_page(title, content)
-            
+                        
         except:
             response = "try using Usage - /create_page <title> <[content]> <author_name(optional)> <author_url(optional)>"
     else:

@@ -6,7 +6,7 @@ telegraph = Telegraph()
 def login(token):
     global telegraph
     telegraph = Telegraph(access_token = token)
-    return get_account_info()
+    return f"Logged in successfully.\n{get_account_info()}"
 
 def create_account(short_name, author_name=None, author_url=None, replace_token=True):
     account = telegraph.create_account(

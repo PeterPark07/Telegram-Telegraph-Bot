@@ -27,8 +27,15 @@ def handle_start(message):
     
 @bot.message_handler(commands=['help'])
 def handle_help(message):
-    # Handle the /start command
-    bot.reply_to(message, "use /start, /create_account , /my_account, /get_access_token, /get_page_list, /revoke_access_token")
+    # Handle the /help command
+    response = "The following commands are available:\n\n"
+    response+= "/start\n"
+    response+= "/create_account\n"
+    response+= "/my_account\n"
+    response+= "/get_access_token\n"
+    response+= "/get_page_list\n"
+    response+= "/revoke_access_token\n"
+    bot.reply_to(message, response)
     
         
 @bot.message_handler(commands=['login_'])

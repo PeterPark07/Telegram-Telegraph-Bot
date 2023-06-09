@@ -46,6 +46,7 @@ def edit_page(path, title, html_content=None, author_name=None, author_url=None,
         author_url=author_url,
         return_content=return_content
     )
+    page = get_page(path)
     return f"{format_response(page)} \n\n/get_page_{page['path']}"
 
 def get_access_token():

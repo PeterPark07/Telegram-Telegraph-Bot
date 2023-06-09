@@ -49,7 +49,7 @@ def get_page(path, return_content=True, return_html=True):
         return_html=return_html
     )
 
-def get_page_list(offset=0, limit=50):
+def get_page_list(offset=0, limit=200):
     return telegraph.get_page_list(offset=offset, limit=limit)
 
 def get_views(path, year=None, month=None, day=None, hour=None):

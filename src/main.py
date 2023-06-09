@@ -7,7 +7,7 @@ app = Flask(__name__)
 bot = telebot.TeleBot(os.getenv('telegraph_bot'), threaded=False)
 admin_user = int(os.getenv('admin'))
 users = [int(id) for id in (os.getenv('users').split(','))]
-account0 = 'No account'
+account0 = False
 
 
 @app.route('/', methods=['POST'])
@@ -28,7 +28,7 @@ def handle_start(message):
 @bot.message_handler(commands=['help'])
 def handle_help(message):
     # Handle the /start command
-    bot.reply_to(message, "use /create_account , /my_account, /get_access_token")
+    bot.reply_to(message, "use /start, /create_account , /my_account, /get_access_token, get_page_list")
     
 
 @bot.message_handler(commands=['create_account'])
@@ -43,34 +43,44 @@ def handle_account_creation(message):
         account = create_account(input[1])
         response = 'short_name - ' + account.get('short_name') + '\naccess_token - ' + account.get('access_token') + '\nauth_url - ' + account.get('auth_url')
         bot.reply_to(message, response)
-        
-        account0 = response
+        account0 = True
         
     elif len(input) == 3:
         account = create_account(input[1], input[2])
         response = 'short_name - ' + account.get('short_name') + '\nauthor_name - ' + account.get('author_name') + '\naccess_token - ' + account.get('access_token') + '\nauth_url - ' + account.get('auth_url')
         bot.reply_to(message, response)
-        account0 = response
+        account0 = True
     else:
         bot.reply_to(message, "Usage - /create_account <short_name> <author_name(optional)>")
     
 @bot.message_handler(commands=['my_account'])
 def handle_account_info(message):
     # Handle the /start command
-    try:
+    if account0:
         info = get_account_info()
         result = ''
         for i in info:
             result += f"{i} -> {info.get(i)}\n"
-    except:
+    else:
         result = "Not logged in."
     bot.reply_to(message, result)
     
     
 @bot.message_handler(commands=['get_access_token'])
-def handle_account_info(message):
-    try:
+def handle_access_token(message):
+    if account0:
         result = get_access_token()
-    except:
+        result+= f"To login using this token, use /login_{result}"
+    else:
         result = "Not logged in."
-    bot.reply_to(message,get_access_token())
+    bot.reply_to(message, result)
+    
+    
+@bot.message_handler(commands=['get_page_list'])
+def handle_page_list(message):
+    if account0:
+        result = get_page_list()
+        result+= f"To login using this token, use /login_{result}"
+    else:
+        result = "Not logged in."
+    bot.reply_to(message, result)

@@ -31,9 +31,11 @@ def handle_help(message):
     bot.reply_to(message, "use /start, /create_account , /my_account, /get_access_token, /get_page_list, /revoke_access_token")
     
         
-@bot.message_handler(commands=['login_access_'])
+@bot.message_handler(commands=['login_'])
 def handle_existing_account(message):
-    token = message.text.split("_")[2]
+    bot.reply_to(message, "active")
+    token = message.text.split("_")[1]
+    bot.reply_to(message, f"on {token}")
     try:
         account = login(token)
         result = ''
@@ -84,7 +86,7 @@ def handle_account_info(message):
 def handle_access_token(message):
     if account0:
         result = f"Your access token is ->> {get_access_token()}"
-        result+= f"\n\nTo login using this token, use \n/login_access_{get_access_token()}"
+        result+= f"\n\nTo login using this token, use \n/login_{get_access_token()}"
     else:
         result = "Not logged in."
     bot.reply_to(message, result)

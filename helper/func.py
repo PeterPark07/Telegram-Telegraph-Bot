@@ -28,7 +28,7 @@ def create_page(title, html_content, author_name=None, author_url=None, return_c
         author_url=author_url,
         return_content=return_content
     )
-    return f"{format_response(page)} \n\nTo edit, use /edit_page_{page[path]}"
+    return f"{format_response(page)} \n\n/get_page_{page[path]}\n\nTo edit, use /edit_page_{page[path]}"
 
 def edit_account_info(short_name=None, author_name=None, author_url=None):
     return telegraph.edit_account_info(
@@ -46,7 +46,7 @@ def edit_page(path, title, html_content=None, author_name=None, author_url=None,
         author_url=author_url,
         return_content=return_content
     )
-    return format_response(page)
+    return f"{format_response(page)} \n\n/get_page_{page[path]}"
 
 def get_access_token():
     token = telegraph.get_access_token()
@@ -55,11 +55,12 @@ def get_access_token():
     return response
 
 def get_page(path, return_content=True, return_html=True):
-    return telegraph.get_page(
+    page = telegraph.get_page(
         path=path,
         return_content=return_content,
         return_html=return_html
     )
+    return f"{format_response(page)} \n\nTo edit, use /edit_page_{page[path]}"
 
 def get_page_list(offset=0, limit=200):
     pages = telegraph.get_page_list(offset=offset, limit=limit)
@@ -69,15 +70,6 @@ def get_page_list(offset=0, limit=200):
         result += f"Page {count}\n\n"
         result += format_response(page)
     return result
-
-def get_views(path, year=None, month=None, day=None, hour=None):
-    return telegraph.get_views(
-        path=path,
-        year=year,
-        month=month,
-        day=day,
-        hour=hour
-    )
 
 def revoke_access_token():
     new_token = telegraph.revoke_access_token()

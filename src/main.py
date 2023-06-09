@@ -53,6 +53,7 @@ def handle_account_creation(message):
     else:
         bot.reply_to(message, "Usage - /create_account <short_name> <author_name(optional)>")
 
+
     
 @bot.message_handler(commands=['my_account'])
 def handle_account_info(message):
@@ -75,7 +76,7 @@ def handle_access_token(message):
     else:
         result = "Not logged in."
     bot.reply_to(message, result)
-    
+
     
 @bot.message_handler(commands=['get_page_list'])
 def handle_page_list(message):
@@ -90,7 +91,9 @@ def handle_page_list(message):
             for j in i:
                 result+= f"{j} -> {i[j]}\n"
         if result == '':
-            result = "Not logged in."
+            result = "No pages found."
+    else:
+        result =  "Not logged in."
     
     bot.reply_to(message, result)
     

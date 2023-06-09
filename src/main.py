@@ -35,6 +35,7 @@ def handle_help(message):
     response+= "/get_access_token\n"
     response+= "/get_page_list\n"
     response+= "/revoke_access_token\n"
+    response+= "/create_page\n"
     bot.reply_to(message, response)
     
         
@@ -53,8 +54,13 @@ def handle_account_creation(message):
         response = create_account(input[1], input[2])
         bot.reply_to(message, response)
         account0 = True
+        
+    elif len(input) == 4:
+        response = create_account(input[1], input[2], input[3])
+        bot.reply_to(message, response)
+        account0 = True
     else:
-        bot.reply_to(message, "Usage - /create_account <short_name> <author_name(optional)>")
+        bot.reply_to(message, "Usage - /create_account <short_name> <author_name(optional)> <author_url (optional)>")
         
 @bot.message_handler(func=lambda message: message.text.startswith('/login_'))
 def handle_existing_account(message):
@@ -106,3 +112,32 @@ def handle_revoke_token(message):
     else:
         result = "Not logged in."
     bot.reply_to(message, result)
+
+
+
+@bot.message_handler(commands=['create_page'])
+def handle_page_creation(message):
+    if account0:
+        try:
+            input = message.text.split('[', 1)
+            title = input[0].split()[1]
+            input = input[1].split(']', 1)
+            content = f"<p> {input[0]} </p>"
+            
+            if len(input) > 1:
+                author_info = input[1].split()
+                if len(author_info) == 1:
+                    response = create_page(title, content, author_info[0])
+                elif len(author_info) == 2:
+                    response = create_page(title, content, author_info[0], author_info[1])
+                else:
+                    response = "Usage - /create_page <title> <[content]> <author_name(optional)> <author_url(optional)>"
+            else:
+                response = create_page(title, content)
+            
+        except:
+            response = "Usage - /create_page <title> <[content]> <author_name(optional)> <author_url(optional)>"
+    else:
+        response = "Not logged in."
+    
+    bot.reply_to(message, response)

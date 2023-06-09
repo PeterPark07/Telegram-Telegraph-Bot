@@ -119,9 +119,9 @@ def handle_revoke_token(message):
 def handle_page_creation(message):
     if account0:
         try:
-            input = message.text.split('[', 1)
+            input = message.text.split('[')
             title = input[0].split()[1]
-            input = input[1].split(']', 1)
+            input = input[1].split(']')
             content = f"<p> {input[0]} </p>"
             
             if len(input) > 1:

@@ -30,6 +30,18 @@ def handle_help(message):
     # Handle the /start command
     bot.reply_to(message, "use /start, /create_account , /my_account, /get_access_token, /get_page_list, /revoke_access_token")
     
+        
+@bot.message_handler(commands=['login_access_'])
+def handle_existing_account(message):
+    token = message.text.split("_")[2]
+    try:
+        account = login(token)
+        result = ''
+        for i in account:
+            result += f"{i} -> {info.get(i)}\n"
+    except:
+        result = "Invalid access token provided"
+    bot.reply_to(message, result)
 
 @bot.message_handler(commands=['create_account'])
 def handle_account_creation(message):

@@ -59,6 +59,9 @@ def handle_account_info(message):
     # Handle the /start command
     try:
         info = get_account_info()
+        result = ''
+        for i in info:
+            result += f"{i} {info.get(i)}\n"
     except:
-        info = "No Account"
-    bot.reply_to(message, info)
+        result = "No Account"
+    bot.reply_to(message, result)

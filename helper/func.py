@@ -2,6 +2,14 @@ from telegraph import Telegraph
 
 telegraph = Telegraph()
 
+def get_account_info():
+    return telegraph.get_account_info(['short_name', 'author_name', 'author_url', 'auth_url', 'page_count'])
+
+def login(token):
+    global telegraph
+    telegraph = Telegraph(access_token = token)
+    return get_account_info()
+
 def create_account(short_name, author_name=None, author_url=None, replace_token=True):
     return telegraph.create_account(
         short_name=short_name,
@@ -38,9 +46,6 @@ def edit_page(path, title, html_content=None, author_name=None, author_url=None,
 
 def get_access_token():
     return telegraph.get_access_token()
-
-def get_account_info():
-    return telegraph.get_account_info(['short_name', 'author_name', 'author_url', 'auth_url', 'page_count'])
 
 def get_page(path, return_content=True, return_html=True):
     return telegraph.get_page(

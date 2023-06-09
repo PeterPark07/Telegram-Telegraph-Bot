@@ -52,6 +52,7 @@ def handle_account_creation(message):
         account0 = True
     else:
         bot.reply_to(message, "Usage - /create_account <short_name> <author_name(optional)>")
+
     
 @bot.message_handler(commands=['my_account'])
 def handle_account_info(message):
@@ -88,9 +89,9 @@ def handle_page_list(message):
             result+= "Page {count}\n\n"
             for j in i:
                 result+= f"{j} -> {i[j]}\n"
-        
-    if result == '':
-        result = "Not logged in."
+        if result == '':
+            result = "Not logged in."
+    
     bot.reply_to(message, result)
     
     

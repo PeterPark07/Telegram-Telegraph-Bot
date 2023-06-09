@@ -34,7 +34,7 @@ def handle_help(message):
 @bot.message_handler(commands=['login_'])
 def handle_existing_account(message):
     bot.reply_to(message, "active")
-    token = message.text.split("_")[1]
+    token = message.text.split("_")[1].strip()
     bot.reply_to(message, f"on {token}")
     try:
         account = login(token)

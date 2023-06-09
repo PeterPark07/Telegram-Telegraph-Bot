@@ -136,7 +136,7 @@ def handle_page_creation(message):
                 response = create_page(title, content)
             
         except:
-            response = "Usage - /create_page <title> <[content]> <author_name(optional)> <author_url(optional)>"
+            response = "try using Usage - /create_page <title> <[content]> <author_name(optional)> <author_url(optional)>"
     else:
         response = "Not logged in."
     

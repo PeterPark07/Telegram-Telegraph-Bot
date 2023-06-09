@@ -136,8 +136,52 @@ def handle_page_creation(message):
                 response = create_page(title, content)
                         
         except:
-            response = "try using Usage - /create_page <title> <[content]> <author_name(optional)> <author_url(optional)>"
+            response = "Usage - /create_page <title> <[content]> <author_name(optional)> <author_url(optional)>"
     else:
         response = "Not logged in."
     
     bot.reply_to(message, response)
+    
+@bot.message_handler(func=lambda message: message.text.startswith('/edit_page_'))
+def handle_page_edit(message):
+    if account0:
+        try:
+            input = message.text.split()
+            path = input[0].split('_')[2]
+            title = input[1]
+            input = message.text.split('[')[1].split(']')
+            content = f"<p> {input[0]} </p>"
+            
+            if input[1] != '':
+                
+                author_info = input[1].split()
+                if len(author_info) == 1:
+                    response = edit_page(path, title, content, author_info[0])
+                elif len(author_info) == 2:
+                    response = edit_page(path, title, content, author_info[0], author_info[1])
+                else:
+                    response = "Usage - /edit_page_<path> <new_title> <[new_content]> <new_author_name(optional)> <new_author_url(optional)>"
+            else:
+                response = edit_page(path, title, content)
+    
+        except:
+            response = "Usage - /edit_page_<path> <new_title> <[new_content]> <new_author_name(optional)> <new_author_url(optional)>"
+    else:
+        response = "Not logged in."
+    
+    bot.reply_to(message, response)
+    
+    
+@bot.message_handler(func=lambda message: message.text.startswith('/get_page_'))
+def handle_page(message):
+    if account0:
+        try:
+            path = message.text..split()[0].split('_')[2]
+            result = get_page(path)
+        except:
+            result == 'Page not found'
+    else:
+        result =  "Not logged in."
+    
+    bot.reply_to(message, result)
+    

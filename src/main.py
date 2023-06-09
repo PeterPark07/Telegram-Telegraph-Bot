@@ -120,10 +120,12 @@ def handle_page_creation(message):
     if account0:
         try:
             input = message.text.split('[')
+            bot.reply_to(message, f"{input[0]} {input[1]}")
             title = input[0].split()[1]
+            bot.reply_to(message, f"{title} test2")
             input = input[1].split(']')
             content = f"<p> {input[0]} </p>"
-            
+            bot.reply_to(message, f"{content} test3")
             if len(input) > 1:
                 author_info = input[1].split()
                 if len(author_info) == 1:

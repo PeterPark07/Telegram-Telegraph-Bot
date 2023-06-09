@@ -38,15 +38,6 @@ def handle_help(message):
     bot.reply_to(message, response)
     
         
-@bot.message_handler(commands=['login_'])
-def handle_existing_account(message):
-    token = message.text.split("_")[1].strip()
-    try:
-        result = login(token)
-    except:
-        result = "Invalid access token provided"
-    bot.reply_to(message, result)
-
 
 @bot.message_handler(commands=['create_account'])
 def handle_account_creation(message):
@@ -65,7 +56,18 @@ def handle_account_creation(message):
     else:
         bot.reply_to(message, "Usage - /create_account <short_name> <author_name(optional)>")
         
-    
+@bot.message_handler(func=lambda message: message.text.startswith('/login_'))
+def handle_existing_account(message):
+    token = message.text.split("_")[1].strip()
+    try:
+        result = login(token)
+        global account0
+        account0 = True
+    except:
+        result = "Invalid access token provided"
+    bot.reply_to(message, result)
+
+
 @bot.message_handler(commands=['my_account'])
 def handle_account_info(message):
     # Handle the /start command

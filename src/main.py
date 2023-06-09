@@ -179,10 +179,9 @@ def handle_page(message):
             path = message.text.split()[0].split('_')[2]
             result = get_page(path)
         except:
-            result == 'Page not found'
+            result = 'Page not found'
     else:
         result =  "Not logged in."
     
     bot.reply_to(message, result)
-    
     

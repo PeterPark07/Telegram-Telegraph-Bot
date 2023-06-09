@@ -125,7 +125,7 @@ def handle_page_creation(message):
             content = f"<p> {input[0]} </p>"
 
             if len(input) > 1:
-                bot.reply_to(message, "len is more than 1" )
+                bot.reply_to(message, f"len is more than 1 , {input[1]}" )
                 author_info = input[1].split()
                 if len(author_info) == 1:
                     response = create_page(title, content, author_info[0])

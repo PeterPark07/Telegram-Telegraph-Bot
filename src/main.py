@@ -70,7 +70,7 @@ def handle_account_info(message):
 def handle_access_token(message):
     if account0:
         result = f"Your access token is ->> {get_access_token()}"
-        result+= f"\n\nTo login using this token, use /login_access_{result}"
+        result+= f"\n\nTo login using this token, use /login_access_{get_access_token()}"
     else:
         result = "Not logged in."
     bot.reply_to(message, result)
@@ -89,7 +89,7 @@ def handle_page_list(message):
             for j in i:
                 result+= f"{j} -> {i[j]}\n"
         
-    else:
+    if result == '':
         result = "Not logged in."
     bot.reply_to(message, result)
     

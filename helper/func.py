@@ -29,6 +29,7 @@ def create_page(title, html_content, author_name=None, author_url=None, return_c
         return_content=return_content
     )
     print("fine till here")
+    print(page[path])
     return f"{format_response(page)} \n\n/get_page_{page[path]}\n\nTo edit, use /edit_page_{page[path]}"
 
 def edit_account_info(short_name=None, author_name=None, author_url=None):

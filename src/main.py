@@ -28,7 +28,7 @@ def handle_start(message):
 @bot.message_handler(commands=['help'])
 def handle_help(message):
     # Handle the /start command
-    bot.reply_to(message, "use /create_account , /my_account")
+    bot.reply_to(message, "use /create_account , /my_account, /get_access_token")
     
 
 @bot.message_handler(commands=['create_account'])
@@ -61,7 +61,16 @@ def handle_account_info(message):
         info = get_account_info()
         result = ''
         for i in info:
-            result += f"{i} {info.get(i)}\n"
+            result += f"{i} -> {info.get(i)}\n"
     except:
-        result = "No Account"
+        result = "Not logged in."
     bot.reply_to(message, result)
+    
+    
+@bot.message_handler(commands=['get_access_token'])
+def handle_account_info(message):
+    try:
+        result = get_access_token()
+    except:
+        result = "Not logged in."
+    bot.reply_to(message,get_access_token())

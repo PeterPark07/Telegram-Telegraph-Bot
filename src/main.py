@@ -8,6 +8,8 @@ bot = telebot.TeleBot(os.getenv('telegraph_bot'), threaded=False)
 admin_user = int(os.getenv('admin'))
 users = [int(id) for id in (os.getenv('users').split(','))]
 account0 = 'No account'
+
+
 @app.route('/', methods=['POST'])
 def telegram():
     # Process incoming updates
@@ -37,22 +39,22 @@ def handle_account_creation(message):
     
     input = input.split()
     
-    if len(input) == 1:
-        bot.reply_to(message, "Usage - /create_account <short_name> <author_name(optional)>")
-    
-    elif len(input) == 2:
+    if len(input) == 2:
         account = create_account(input[1])
         response = 'short_name - ' + account.get('short_name') + '\naccess_token - ' + account.get('access_token') + '\nauth_url - ' + account.get('auth_url')
         bot.reply_to(message, response)
         
         account0 = response
+        
     elif len(input) == 3:
         account = create_account(input[1], input[2])
         response = 'short_name - ' + account.get('short_name') + '\nauthor_name - ' + account.get('author_name') + '\naccess_token - ' + account.get('access_token') + '\nauth_url - ' + account.get('auth_url')
         bot.reply_to(message, response)
         account0 = response
+    else:
+        bot.reply_to(message, "Usage - /create_account <short_name> <author_name(optional)>")
     
 @bot.message_handler(commands=['my_account'])
 def handle_account_info(message):
     # Handle the /start command
-    bot.reply_to(message, account0)
+    bot.reply_to(message, get_account_info())

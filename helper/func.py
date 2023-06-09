@@ -28,7 +28,7 @@ def create_page(title, html_content, author_name=None, author_url=None, return_c
         author_url=author_url,
         return_content=return_content
     )
-    return format_response(page)
+    return f"{format_response(page)} \n\nTo edit, use /edit_page_{page[path]}"
 
 def edit_account_info(short_name=None, author_name=None, author_url=None):
     return telegraph.edit_account_info(
@@ -38,7 +38,7 @@ def edit_account_info(short_name=None, author_name=None, author_url=None):
     )
 
 def edit_page(path, title, html_content=None, author_name=None, author_url=None, return_content=True):
-    return telegraph.edit_page(
+    page = telegraph.edit_page(
         path=path,
         title=title,
         html_content=html_content,
@@ -46,6 +46,7 @@ def edit_page(path, title, html_content=None, author_name=None, author_url=None,
         author_url=author_url,
         return_content=return_content
     )
+    return format_response(page)
 
 def get_access_token():
     token = telegraph.get_access_token()

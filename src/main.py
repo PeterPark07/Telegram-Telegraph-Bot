@@ -176,7 +176,7 @@ def handle_page_edit(message):
 def handle_page(message):
     if account0:
         try:
-            path = message.text..split()[0].split('_')[2]
+            path = message.text.split()[0].split('_')[2]
             result = get_page(path)
         except:
             result == 'Page not found'
